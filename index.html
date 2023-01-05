@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery</title>
+    <script src="js/jquery-3.6.3.js"></script> <!-- Instalación local con los archivos descargados-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <!-- Instalación remota, se puede optener de los CDN-->
+</head>
+<body>
+    <h1>Instalación Local y remota</h1>
+    <script>
+        $(function(){
+
+            /*$("selector").accion*/
+
+            $("*"); /*Selector universal*/
+            $("*").hide(); /*Para ocultarlo todo*/
+            $("img") /*Selecciona las imagenes*/
+            $("img").hide(); /*Para ocultar las imagenes*/
+            $("(etiqueta#iddelelementodehtml)").hide(); /*Para ocultar el elemente con ese id*/
+            $("(.iddelelementodehtml)").hide(); /*Para ocultar el elemente con esa clase*/
+            $("h1,h2,h3").hide(); /*Ocultamos los h1,h2,h3*/
+            $("input[type='password']").hide(); /*Para ocultar los input con contraseña*/
+            $("img").eq(1).hide(); /*Para ocultar solo la primera imagen*/
+            $("li").css("color","red") /*Para poner cualidades de css, en este caso el color*/
+
+            /*Pseudoselectores*/
+
+            $("ul.clase li:first-child").hide(); /*Para ocultar el primer li */
+            $("ul.clase li:last-child").hide(); /*Para ocultar el ultimo li */
+            $("ul.clase li:nth-child(3)").hide(); /*Para ocultar especificamente el li que quieres */
+            $("img:last-of-type").hide(); /*Ocultar las ultimas imagenes de su tipo 
+            dentro de su padre*/
+            $("img:last-of-type").eq(3).hide(); /*Ocultar la 3 imagen*/
+            $("td:last-of-type").hide() /*Ocultar los ultimos td*/
+            $("input:required").hide(); /*Ocultar los input que son requeridos */
+
+            /*Practicas*/
+
+            /*Selectionar la primera columna del cuerpo de la tabla */
+            $("tbody tr td:first-child");
+            $("tbody tr td:first-of-type"); 
+
+            /*Selectionar el primer elemnto de la lista */
+
+            $("li").eq(0);
+            $("li:nth-child(1)");
+
+            /*Selectionar el campo del formulario anterior al botón */
+
+            $("input:last-of-type");
+            $("input:nth-child(4)");
+
+            /*Selectionar el último elemento de la lista */
+
+            $("li:last-child");
+            $("li:last-of-type");
+
+            /*Selectionar ultima imagen de mi pagina */
+
+            $("img").eq(6);
+            $("img:nth-child(6)");
+
+            /************************************************************************************/
+
+            /*Selectores Propios de jQuery*/
+
+            $("img").eq(); /*Para seleccionar uno en particular*/
+            $("td").text(); /*Coger el contenido de los td*/
+            $("td").text("hola"); /*Para cambiar el contenido de los td*/
+            $("form").has("input[type='password']"); /*Para el formulario que tengan ese tipo de input*/
+            $("tbody td:contains('A')"); /*Seleccionar los td que contienen A*/ 
+            $("tbody tr:odd") /*Seleccionar los tr impares*/
+            $("tbody tr:even") /*Sleccionar los tr pares*/
+            $(":input") /*Hace referencia a todos los imputs que hay*/
+            $("img:gt(3)") /*Seleccionar las imagenes a partir de la 3 hacia arriba*/
+            $("img:gt(1)") /*Seleccionar las imagenes a partir de la 1 hacia abajo*/
+            $("img").first() /*Para seleccionar la primera imagen*/
+            $(":password") /*Para seleccionar elementos de tipo password*/
+            $(":header") /*Para seleccionar la cabezera*/
+            $("tr:parent") /*Los tr que tienen hijos*/
+            /*El tr es padre si tiene contenido, con una id o una clase solo no es padre*/
+            $("img:visible") /*Seleccionar las imagenes visibles*/
+            $("img:hidden") /*Seleccionar las imagenes no visibles*/
+
+            /* each() & this()*/
+
+            $("li").each(function(index){
+                console.log("El elemento" + index + " contiene " + $(this).text());
+            });
+
+            /*Sacar el numero de li, el indice y el contenido*/
+
+            $("li").each(function(index){
+                console.log("El elemento" + index + " contiene " + $(this).text());
+
+                if (index % 2 == 0){
+                    $(this).css("color","green");
+                }
+            });
+
+            /*Para los li que sean pares lo pongo en verde*/
+
+
+            /*Practica para each() y this()*/
+
+            /*Celdas de la tabla que contenga un texto determinado*/
+
+                $("td:contains('B')").css("color","green"); 
+
+            /*Celdas de la primera columna de la tabla que contengan un texto*/
+
+                $("td:nth-child(1):contains('A')");
+
+            /*Todos los campos y los botones del formulario*/
+
+                $(":input");
+
+            /*Todos los elementos de cabecera*/
+
+                $(":header");
+
+            /*Las dos últimas imágenes (hay 6)*/
+
+                $("img:gt(3)");
+
+            /*Ejemplo de evaluación*/
+
+                $("tbody tr").each(function(index){
+                    conle.log("INDICE --->" + index);
+
+                    let examen1 = $("tbody tr:nth-child(" + (index + 1) + ")td").eq(1).text();
+                    console.log("Columna 1 --->" + examen1);
+                    let examen2 = $("tbody tr:nth-child(" + (index + 1) + ")td").eq(2).text();
+                    console.log("Columna 2 --->" + examen2);
+                    let examen3 = $("tbody tr:nth-child(" + (index + 1) + ")td").eq(3).text();
+                    console.log("Columna 3 --->" + examen3);
+
+                    let total = (parseFloat(examen1) + parseFloat(examen2) + parseFloat(examen3)) / 3
+
+                    $("tbody tr:nth-child("+ (index + 1) + " td").eq(4).text(total);
+
+                    (total >= 5) ? $(this).css("color","green") : $(this).css("color","red")
+                })
+            
+
+            /****************************************************************************************/
+
+            /*Añadiendo y quitando estilos*/
+
+            var valor = $("selector").css("propiedad"); //Nos da los valores del primer selector
+
+            $("selector").css("propiedad", "valor"); //Ponemos los estilos a los selectores = a selector
+
+            $("selector").css("propiedad",function(index, value){
+                //$(this)
+            });
+
+            /*Ejemplos*/
+
+            var color = $("li").css("color"); // color para el primer li --> rgb(255,255,0)
+            $("li").css("color","green"); // color green para todos
+            $("img").css("width","+=50"); // Aumentan las imagenes 50px
+            /*****************************************************************************************/
+        
+            var propiedades = $("selector").css(["propiedad1","propiedad2","propiedad3"]); 
+            //Para varias propiedades del primer selector que pongamos, nos da los valores
+            $("selector").css({prop1:valor,prop2:valor,prop3:valor});
+            //Para poner varias propiedades a todos los selectores = al selector que ponemos
+
+            /*Ejemplos*/
+
+            $("li").css({"color":"green","background-color":"Blue"}); // color green y fondo blue para todos
+
+            /*Funciones adicionales*/
+
+            var size = $("selector").width(); // Para obtener el width
+            $("selector").width(value); // Para fijar el width
+            var size = $("selector").height(); // Para obtener el height
+            $("selector").height(value); // Para fijar el height
+
+            
+            /*Añadir clases a elementos*/
+
+            $("selector").addClass("clase1 clase2 clase3"); //
+            $("selector").addClass(function(index) { 
+                // ....
+                return "variosnombresdeclases";
+            });
+
+            /*Ejemplo*/
+
+            $("button").addClass("mibotton"); // Añado la clase miboton al selector button
+            $("section").addClass(function(index) {
+                return "section" + index; 
+            }); // Se añadira la clase section1 section2 section3 a los selectores
+
+            $("button").removeClass("mibotton"); // Eliminando la clase miboton del selector button
+            $("section").removeClass(function(index) {
+                return "section" + index; 
+            }); // Para eliminar las clase section1 section2 section3 a los selectores
+
+            $("button").toggleClass("mibotton"); // Añade si no esta la clase miboton y la quita si existe
+
+            $("button").hasClass("mibotton"); // Devuelve true si cualquiera de los selectores button tiene esa clase
+
+            /***************************************************************************************/   
+            /*Jugando con los atributos (Ejemplo: href)*/
+            /*<input id="ej" type="text" value="Pepe"*/
+
+            console.log($("#ej").attr("value")); // Muestra lo que contiene el atributo value, Pepe
+            console.log($("#ej").prop("value")); // Muestra lo que contiene la propiedad value, Pepe
+            console.log($("#ej").attr("disable")); // Undefined
+            console.log($("#ej").prop("disable")); // False, porque esta habilitado
+            $("#ej").val("Carlos") // Modifico el valor de la propiedad de value
+            console.log($("#ej").attr("value")); // Pepe --> El valor que tengo en el HTML
+            console.log($("#ej").prop("value")); // Carlos --> El valor actual
+
+            /*Existen tando el removeattr y el removeprop*/
+
+            var valor = $("selector").attr("atributo");
+            //obtenemos el valor de un atributo del Primer elemento
+
+            $("selector").attr("atributo", "nuevovalor");
+            // Fijamos el valor de un atributo concreto en todos los elementos seleccionados
+
+            $("selector").attr({atr1:valor1,atr2:valor2,atr3:valor3});
+            // Para fijar el valor de varios atributos a la vez en todos los elementos seleccionados
+
+            //Obtengo la dirección del PRIMER ENLACE
+            //Obtengo el valor del atributo href
+                var url = $("a").attr("href");
+
+            //Todos los enlaces se abrirán en una nueva ventana
+            //Establezco ese atributo para TODOS LOS enlaces
+                $("a").attr("target","_blank");
+
+            //Establezco dos atributos a la vez para 
+            //el elemento con ese id (el selector podría devolver más elementos)
+                $("#miprofile").attr({
+                    alt:"Foto de mi cara",
+                    title:"Foto hecha por mí"
+                })
+
+             //Eliminar un atributo dado de los los elementos seleccionados
+                $("some_selector").removeAttr("some_attribute");
+
+            //Ejemplo
+            //Quita el atributo required de todos los inputs (si es que lo tenían)
+                $("input").removeAttr("required");
+
+            //Obtengo propiedad href del primer enlace
+                var url = $("a").prop("href");
+
+            //Todos los enlaces se abrirán en una nueva ventana
+            //Pongo ese valor a la propiedad
+                $("a").prop("target","_blank");
+
+            //Establezco dos propiedades a la vez para una imagen que tiene un id
+                $("#miprofile").prop({
+                    alt:"Foto de mi cara",
+                    title:"Foto hecha por mí"
+                })
+
+            //Eliminar una propiedad dada de los los elementos seleccionados
+                $("some_selector").removeProp("some_attribute");
+
+            //Ejemplo
+                $("input").removeProp("required")
+
+
+            /*Modificar el arbol*/
+
+            //Borrar todo el contenido de los elementos seleccionados
+            $("li:nth-child(3)").empty();
+
+            //Obtiene el HTML del Primer Elemento de los seleccionados
+            var contenido = $("selector").html();
+            $("ul").html("<li>hola</li>"); // Sustituye el contenido de todos los elementos seleccionados
+            
+            //Tengo disponible posición y antiguo texto si le paso una función
+            $("ul").html(function(index, oldText){
+                $(this).html(oldText + "<li>Nuevo</li>");
+                // ....
+            })
+
+            $("ul").text("hola"); // Sustituye el texto de todos los elementos seleccionados y obia las etiquetas
+
+            //Para añadir nuevos elementos HTML
+
+            $("body").append("<h1>Hola</h1>") // Al principio
+            $("body").prepend("<h1>Hola</h1>") // Al final
+
+            $("<h1>Hola</h1>").appendTo("body") // Al final
+            $("<h1>Hola</h1>").prependTo("body") // Al principio
+
+            //Añadir cierta estructura HTML alrededor de todos los elementos seleccionados
+
+            $("article").wrap("<div class='article_outer'></div>");
+
+            /*Pasaría de                         a 
+                                            <div class='article_outer'></div>
+                <article>                       <article>                           
+                    ...                               ...
+                </article>                      </article>                                         
+                                            </div>
+            */
+                                            
+            $("article").unwrap(); // Elimina al padre en este caso al div que creamos anteriormente
+            $("article").wrap(".article_outer"); // Elimina al padre en este caso al div que tiene como clase article_outer
+
+            $("article").wrapAll("<div class='article_outer'></div>");
+            //Entre el primer y el ultimo articulo
+            $("article").wrapInner("<div class='article_outer'></div>");
+            //En vez de ser el padre es el hijo
+
+            $("input[type=text]").val("Pepe"); // Cambia el valor del input a pepe
+
+            /****************************************************************************************/
+
+            /*Eventos en jQuery*/
+
+            //ASOCIACIÓN DIRECTA: Se ejecuta el handler cuando sucede el evento en el elemento o en sus hijos.
+            //event es opcional
+
+                $("some_selector").on("event1 event2 eventN", function(event) {
+                //Tengo acceso a $(this) (El elemento donde sucedió el evento )
+                });
+
+            //ASOCIACIÓN DELEGADA. Se añade un parámetro y se ejecutará el handler si el evento sucede en algunos de los hijos del elemento que cumple con el selector2
+
+                $("some_selector").on("event1 event2 eventN", "selector2",function(event) {
+                    //Tengo acceso a $(this) (El elemento donde sucedió el evento )
+                });
+
+            //Análogo a on() pero se ejecuta el handler como mucho una vez
+            //Luego se ELIMINA EL HANDLER. Puedo tener también asociación directa e indirecta.
+                $("some_selector").one("event1 event2….eventN", function(event) {
+                //Tengo acceso a $this (elemento donde ocurrió el evento)
+                });
+
+            /*Ejemplo*/
+                //Asociación Directa
+
+            var numVeces = 0;
+            $("li#ejemplo").on("click mouseenter", function(event) {
+                $(this).html("Número de cliscks: " + (++numVeces));
+            });
+                //Asociación Delegada
+
+            var numVeces2 = 0;
+            $("ul").on("click mouseenter","li#ejemplo", function(event) {
+                $(this).html("Número de cliscks: " + (++numVeces2));
+            });
+
+                //tambien se puede con la función click, aunque solo permite asociación directa
+            
+            var numVeces3 = 0;
+            $("li#ejemplo").click(function (event) {
+                $(this).html("Número de cliscks: " + (++numVeces3));
+            });
+
+            /*Eventos con nombre*/
+
+            //.change() --> Cuando cambia el contenido de un input
+            //.click() --> Cuando se hace click
+            //.dbclick() --> Cuando se hace dobre click
+            //.focus() --> Cuando entro en un elemento
+            //.focusout() --> Cuando salgo de un elemento
+            //.hover() --> Cuando me situo encima del elemento
+            //.keypress() --> Cuando pulso alguna tecla, no incluye caracteres especiales, no diferencia entre mayusculas y minusculas
+            //.keydown() --> Cuando pulso alguna tecla, incluyecdo caracteres especiales, diferencia entre mayusculas y minusculas
+            //.keyup() --> Cuando levanto de pulsar una tecla del teclado
+            //.mousedown() --> Cuando pulso algun botón del raton
+            //.mouseup() --> Cuando libero el raton trás hacer click
+            //.mouseenter() --> Cuando el ratón entra en un elemnto (IE), solo el elemento
+            //.mouseleave() --> Cuando el raton sale de un elemento (IE), solo el elemento
+            //.mousemove() --> Cuando muevo el ratón
+            //.mouseout() --> Cuando el cursor sale de ese elemento, elemento y hijos
+            //.mouseover() --> Cuando el cursor entra en un elemento, elemento y hijos
+            //.resize() --> Cuando redimensiono un elemento
+            //.scroll() --> Cuando toco el scroll (Barra lateral)
+            //.select() --> Cuando selecciono
+            //.submit() --> Cuando envio un formulario
+            //.contextmenu() --> Muestra un menu al darle click derecho
+
+            // El event de las funciones es información adicional del elemento que ha sucedido, puedes ponerlo
+            // Para que te de la información cuando lo llames y poder modificar las opciones por defecto
+
+            /*El objeto Event*/
+
+            //e.currentTarget --> El objeto actual donde se ha producido
+            //e.delegatedTarget --> Si se a producido acción delegada
+            //e.pageX --> Posición X donde se ha producido el evento
+            //e.pageY --> Posición Y donde se ha producido el evento
+            //e.preventDefault() --> Evitar el comportamiento por defecto
+            //e.Target --> Target
+            //e.timeStamp --> El momento del tiempo en el que se ha producido
+            //e.type --> Nombre del evento que se ha producido
+            //e.which --> botón o tecla que he presionado
+            //e.metaKey --> Teclas especiales (true or false)
+
+
+            //Control de Propagación de eventos
+            event.preventDefault(); // Evita el comportamiento por defecto
+            event.stopPropagation(); // Para la propagación hacia arriba
+            event.stopInmediatePropagation(); // Para el resto de los handlers y la propagación hacia arriba
+
+            $("a").click(function (event) {
+                event.preventDefault();
+                alert("No me voy a ningún sitio");
+                //Si algún padre tuviera algún handler no se ejecutaría
+                event.stopImmediatePropagation();
+            });
+            
+            /*Concectar y desconectar handlers*/
+
+            //Borra todos los handlers asociados a un selector
+                $("some_selector").off();
+
+            //Borra una serie de handlers asociados a un selector
+                $("some_selector").off("event1 event2...eventN");
+
+            //Borra una serie de handlers asociados a un selector
+            //por asociación delegada.
+            //Tiene que tener las misma definición que cuando habíamos hecho
+            //un .on() delegado.
+            //Tercer parámetro opcional “**” borra sólo los delegados 
+                $("some_selector").off("event1 event2...eventN","selector2");
+            
+            //Handler únicamente para los elementos que ya EXISTEN (ASIGNACIÓN //DIRECTA)
+                $("p").on("click", function (event) {
+                    alert("Click en párrafo");
+                    event.stopImmediatePropagation();
+                });
+
+            //Handler para los nuevos y los que voy a seguir creando
+            //ASIGNACIÓN DELEGADA
+                $("div.output").on("click", "p", function (event) {
+                    alert("Click en párrafo- DELEGADA");
+                    event.stopImmediatePropagation();
+                });
+
+            /*Disparando eventos*/
+
+            //Simulo que se ha producido un eventos en los elementos del selector
+                $("some_selector").trigger("some_event");
+
+            //El argumento puede ser un objeto Evento. Pasa toda la información
+                $("some_selector").trigger(event);
+
+            //Ejecuto todos los handlers asociados evento
+                $("some_selector").triggerHandler("some_event");
+
+            //Ejecuto todos los handlers asociados a un objeto del tipo evento
+                $("some_selector").triggerHandler(event);
+            
+            //Si uso .trigger() el comportamiento por defecto se sigue manteniendo y hay propagación.
+
+            //Si uso .triggerHandler() no se ejecuta el comportamiento por defecto del elemento, debo 
+            //tener obligatoriamente un handler asociado para el evento concreto y no hay propagación del evento.
+        
+            /********************************************************************************************/
+
+            /*Creando y lanzando mis propios eventos*/
+
+            //Uso el nombre de “mi evento”
+            $("some_selector").on("mi_evento");
+
+            //Lo utilizo con trigger
+            $("........").trigger("mievento");
+            $("........").triggerHandler("mievento");
+
+            /*******************************************************************************************/
+
+            /*Funciones para el recorrido del árbol*/
+
+            //.children() --> Coge todos los hijos del elemento
+            //.next() / .nextAll() / .nextUntil() --> Coge el siguiente de sus hermanos
+            //.prev() / .prevAll() / .prevUntil() --> Hermano previo
+            //.parent() / .parents() / .parentUntil() --> Padre directo, sus padres
+            //.closest() --> De los que estan seleccionados el más cerca
+            //.siblings() --> Todos los hermanos
+
+            /*Sin filtro*/
+
+            $("selector").funcion_de_la_lista();
+            $("ul").children().css("color", "red");
+
+            //El color del texto de todos los hijos de los ul (los li) será rojo
+            $("ul")
+                .children()
+                .css("color", "red");
+
+
+            /*Con filtro*/
+
+            $("selector").funcion_de_la_lista("otroselector");
+            $("ul").children().css("li:nth-child(1)").css("color", "red");
+
+            //Lo mismo qu antes pero sólo para los primeros hijos
+            $("ul")
+                .children("li:nth-child(1)")
+                .css("color", "red");  
+                
+                
+            /*Filtros*/
+
+            //.find() Descendientes (hijos, nietos etc..) que encajan con el segundo selector
+                $("some_selector").find("otro_selector");
+
+            //Todos los descencientes con esas clase (td/td/….)
+                $("table").find(".celda_verde");
+
+            //.filter() Reduce los seleccionados a los
+            //que encajan con el segundo selector
+                $("some_selector").filter("otro_selector");
+
+            //Todos los descencientes con esas clase (td/td/….)
+                $("ul").filter(".lista_menu");
+
+            //Con una función para cada uno de los resultantes del filtro
+            //Tengo el índice dentro de los seleccionado y $(this)
+            //Modifico si la función es TRUE
+
+                $("li").filter(function(index) {
+                    return index === 9
+                }).text("SOY YO");
+
+            //.slice() Selecciono un rango de entre los elegiods 0-based()
+                $("some_selector").slice(inicio);
+                $("some_selector").slice(inicio,fin);
+
+            //De la primera fila la segunda y la tercera
+                $("table tr").children().slice(1,3).text("");
+
+            
+            /*Funciones para insertar elementos*/
+
+            //.after() y .before()
+            //.insertAfter() e .insertBefore()
+            //.clone()
+
+            /*After y before*/
+
+            $("some_selector").after(content1,contentN);
+            $("some_selector").before(content1,contentN);
+
+            //El contenido puede ser: Un selector,HTML, Objeto jQuery, un array
+
+            //Con función cuyo valor devuelto es lo que se añade.
+            //Tengo disponible posición y $(this)
+                $("some_selector").after(function(index) {
+        
+                });
+
+            //Igual pero con el HTML del elemento disponible
+                $("some_selector").after(function(index,html) {
+        
+                });
+
+            /*Ejemplos*/
+
+            //Añado una fila más después de la última fila
+            $("tr")
+                .last()
+                .after("<tr><td>F</td></tr>");
+
+            //Muevo la primera fila al final
+            $("tr")
+                .last()
+                .after($("tr").first());
+
+            //Duplico las filas
+            $("tr").after(function(index, html) {
+                return html;
+            });
+
+            /*.insertAfter() e .insertBefore, es lo mismo que el after y el before pero en orden inverso*/
+             
+            $("origin").insertAfter(target); // Un target puede ser: Un selector,HTML, Objeto jQuery, un array
+
+            /*Ejemplos*/
+
+            //Añado una fila más después de la última fila
+                $("<tr><td>F</td></tr>").inserAfter("tr:last");
+
+            //Muevo la primera fila al final
+                $("tr:fist").insertAfter($("tr").last());
+
+            /*.Clone*/
+
+            //De manera general
+                $("selector").clone(withEvents);
+                $("selector").clone(withEvents,whithDeepEvents);
+
+            //Clono la primera fila y la añado al final
+                $("tr").first().clone(false).appendTo("table");
+
+
+            /*Borrar nodos con .remove() y .detach()*/
+
+            //Borra del DOM los elementos seleccionados
+                $("some_selector").remove();
+            //Aplicando un filtro a los seleccionados
+                $("some_selector").remove("filter_selector");
+
+            //Guardando lo borrado
+                var result = $("some_selector").detach();
+            //Guardando y filtrando"
+                var result = $("some_selector").detach("filter_selector");
+
+            /*Remplazar nodos con .replaceAll() y .replaceWidth()*/
+
+            //Reemplaza el elemento objetivo con el conjunto de los seleccionado
+                $("some_selector").replaceAll(target);
+
+            //Se sustituyen todas las celdas td por celdas td que contienen X
+                $("<td>X</td>").replaceAll("td");
+
+            //Igual que el anterior pero el origen y el objetivo están al revés
+                $(target).replaceWith("some_selector");
+            //Se sustituyen todas las celdas td por celdas td que contienen X
+                $("td").replaceWith("<td>X</td>");
+
+
+            /*****************************************************************************************/
+
+            /*Efectos y Cola de eventos*/
+
+            /*https://prnt.sc/W-Q7SAEiRbCI  --> Tipos de efectos*/
+
+             //Aplicación del efecto con las opciones por defecto a los elementos seleccionados
+                $("some_select").nombre_funcion();
+
+            //Ejemplos Oculta las tablas
+                $("table").hide();
+
+            //Especificando una duración concreta para el efecto (en milisegundos).
+                $("some_selector").nombre_funcion(num_milisegundos);
+
+            //Ejemplo - Las listas se desvanecen en 5 milisegundos.
+                $("ul").fadeOut(5000);
+
+            //Ejecutando una función al acabar el efecto
+            //Sin duración
+                $("some_selector").nombre_funcion(function() {
+
+                });
+            //Con duración
+                $("some_selector").nombre_funcion(num_milisegundos,function() {
+
+                });
+
+            //Muestro mensaje al acabar de hacer el efecto "cortinilla" en el formulario
+                $("form").slideUp(2000,function() {
+                    alert("Formulario oculto")
+                });
+            
+            //Opacidad a la mitad en 2 segundos. 
+            //El parámetro de la función es opcional.
+                $("table").fadeTo(2000,0.5,function() {
+                    console.log("HOLA");
+                });
+            
+
+            // jQuery tiene funciones para controlar esta cola.
+
+            //.stop(): Finaliza la aplicación el efecto o animación en curso en los 
+            //elementos seleccionados.
+            //.finish(): Finaliza la aplicación el efecto o animación en curso y elimina las 
+            //que están esperando en cola finalizándolas (en los elementos seleccionados).
+            //.queue(‘fx’): Obtiene información de la cola de efectos y animaciones 
+            //(en los elementos seleccionados).
+            //.clearQueue(): Elimina de la cola todos los efectos o animaciones pendientes 
+            //(en los elementos seleccionados).
+            //.delay(): Establece un retraso para la ejecución de los restantes elementos 
+            //de la cola de efectos y animaciones (en los elementos seleccionados).
+
+
+            /*Animaciones (.animate())*/ 
+
+            /* https://prnt.sc/LmZM1Aym7xEx --> Animables y no animables */arguments
+
+            //Especificando los propiedades
+            // Valores especiales ‘show’, ‘hide’ ‘toggle’
+            // Incremento con respecto al valor actual += y -=
+                $("some_selector").animate({
+                    prop1 : valor1,
+                    prop2: valor2,
+                    proprN : valorN
+                });
+        
+            //Especificando los propiedades  y duración
+                $("some_selector").animate({
+                    prop1 : valor1,
+                    prop2: valor2,
+                    proprN : valorN
+                }, duración_milisegundos);
+
+            /*Ejemplos*/
+
+            //Animo el tamaño de las letra de los td
+            //En dos segundos
+                $("td").animate(
+                    {
+                        fontSize: "3rem"
+                    },
+                    2000
+                );
+          
+            //Incremento el alto y ancho de las imágenes en 3 segundos
+                $("img").animate(
+                  {
+                    height: "+=50px", //50 pixels más
+                    width: "+=50px" //50 pixels menos
+                  },
+                  3000
+                );
+          
+            //Efecto de desaparecer de las imágenes
+            //Cortinilla horizontal
+                $("img").animate(
+                  {
+                    opacity: 0,
+                    width: "hide"
+                  },
+                  5000
+                );
+            
+            /***************************************************************************************/
+
+            /*Ajax y jQuery*/
+
+            //Estructura general SIMPLIFICADA
+            $.ajax(url[settings]);
+
+            /*https://prnt.sc/cjKQGd6GZTJi
+            https://prnt.sc/_V-J1QmXvHSn  --> Ambas imagenes nos muestran los settings más destacados*/ 
+
+
+            /*****************************************************************************************/
+
+            /*jQuery UI*/
+
+            /*Tengo que tener:
+                De manera local:
+            <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+            <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+                De manera remota:
+            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+            
+            */
+                
+            /*Componentes
+            
+                Acordeón. <—-
+                Autocompletado.
+                Botones. <—-
+                Checkboxradio. <—-
+                Controlgroup.
+                DatePicker.
+                Dialog.<—-
+                Menú.<—-
+                ProgressBar.
+                SelectMenu.
+                Slider.
+                Spinner.
+                Tabs.<—-
+                Tooltips.  
+
+            */
+
+            /*Interacciones
+            
+            Draggable: Permite mover los elementos por la página de manera libre. <—-
+            Droppable: Permite que elementos sean receptores de los elementos que 
+            hemos indicado como draggables.<—-
+            Resizable: Permite redimensionar los elementos.<—-
+            Selectable: Permite seleccionar uno o varios elementos.
+            Sortable: Permite reordenar los elementos.
+            
+            */
+
+
+        })
+    </script>
+</body>
+</html>
